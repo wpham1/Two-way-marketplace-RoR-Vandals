@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 # Custom Gems
 gem 'bootstrap', '~> 5.0.1'
 gem 'jquery-rails'
+gem 'simple_form'
 
 
 # Reduces boot times through caching; required in config/boot.rb
