@@ -7,9 +7,10 @@
     <%= f.input :name %>
     <%= f.input :description %>
     <%= f.input :price %>
-    <%= f.input :size %>
-    <%= f.input :finish %>
-    <%= f.association :user %>
+    <%= f.input :size, collection: ["Small", "Medium", "Large"] %>
+    <%= f.input :finish, collection: ["Matte", "Glossy", "Transparent"] %>
+    <%= f.file_field :picture %>
+    <%# <%= f.association :user %>
   </div>
 
   <div class="form-actions">
