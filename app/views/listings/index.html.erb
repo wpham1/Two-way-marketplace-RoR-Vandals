@@ -2,7 +2,7 @@
 
 <h1>Listings</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -23,7 +23,7 @@
         <td><%= listing.price %></td>
         <td><%= listing.size %></td>
         <td><%= listing.finish %></td>
-        <td><%= listing.user_id %></td>
+        <td><%= listing.user.username %></td>
         <td><%= link_to 'Show', listing %></td>
         <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
         <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>

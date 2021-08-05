@@ -3,3 +3,24 @@
 
 <%# <button type="button" class="btn btn-primary btn-lg">Large button</button> %>
 <%= link_to "Add New Sticker", new_listing_path, class: "btn btn-primary btn-lrg" %>
+
+<div class="row">
+    <% @listings.each do |listing|%>
+        <%# turns the cards into rows of 4 %>
+        <div class="col-md-4">
+            <div class="card" style="width: 15rem;">
+            <%# <img src="..." class="card-img-top" alt="..."> %>
+            <%= image_tag listing.picture, class: "card-img-top" %>
+            <div class="card-body">
+                <h5 class="card-title"><%= listing.name %></h5>
+                <p class="card-text listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
+                <p class="card-text">$<%=listing.price %> 
+                <%= link_to "Show More", listing_path(listing.id), class:"btn btn-primary btn-right" %>
+                </p>
+                <%# <a href="#" class="btn btn-primary">Show more</a> %>
+
+            </div>
+            </div>
+        </div>
+    <% end %>
+</div>
