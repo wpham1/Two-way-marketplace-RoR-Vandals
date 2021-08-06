@@ -7,12 +7,13 @@
 <div class="row">
     <% @listings.each do |listing|%>
         <%# turns the cards into rows of 4 %>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card" style="width: 15rem;">
             <%# <img src="..." class="card-img-top" alt="..."> %>
             <%= image_tag listing.picture, class: "card-img-top" %>
             <div class="card-body">
                 <h5 class="card-title"><%= listing.name %></h5>
+                <h6 class="card-subtitle"><%= listing.user.username %></h6>
                 <p class="card-text listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
                 <p class="card-text">$<%=listing.price %> 
                 <%= link_to "Show More", listing_path(listing.id), class:"btn btn-primary btn-right" %>
