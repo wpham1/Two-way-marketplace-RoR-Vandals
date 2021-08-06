@@ -1,6 +1,7 @@
 <%# <p id="notice"><%= notice </p> %>
 
-<h1><%= params[:username] %> Shop</h1>
+<h1>Your Stickers</h1>
+<h1>Your Shop</h1>
 
 <table class="table">
   <thead>
@@ -23,14 +24,9 @@
         <td><%= listing.price %></td>
         <td><%= listing.size %></td>
         <td><%= listing.finish %></td>
-        <td><%= listing.user.username %></td>
-        <td><%= link_to 'Show', shop_path(listing.user.username, listing.id) %></td>
-        <% if params[:username] == current_user.username %>
-          <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-          <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% else %>
-          <%= link_to 'Home', root_path %>
-        <% end %>
+        <td><%= link_to 'Show', listing %></td>
+        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
+        <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,5 +34,4 @@
 
 <br>
 
-<%= link_to 'New Listing', new_listing_path %>
-
+<%# <%= link_to 'New Listing', new_listing_path %> %>

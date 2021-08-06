@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<%# <p id="notice"><%= notice </p> %>
 
 <p>
   <strong>Name:</strong>
@@ -34,6 +34,9 @@
   <%= image_tag @listing.picture %>
 </p>
 
-
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
+<% if params[:username] == current_user.username %>
+  <%= link_to 'Edit', edit_shop_path(current_user.username, @listing.id) %> |
+  <%= link_to 'Back', shop_index_path(current_user.username) %>
+<% else %>
+<%= link_to 'Home', root_path %>
+<% end %>

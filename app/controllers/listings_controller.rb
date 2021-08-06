@@ -5,9 +5,26 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
-    @listings = Listing.where(user_id: "#{current_user.id}")
+    
+   # CHANGE THIS TO SHOP AND MAKE INDEX ALL AGAIN
+   @listings = Listing.where(user_id: "#{User.find_by_username(params[:username]).id}")
+
+    # shows listings of the currently signed in user
+    # @listings = Listing.where(user_id: "#{current_user.id}")
+    
+    # shows all listings
     # @listings = Listing.all
   end
+
+  def shop
+
+
+    # finds the listing by the username
+    @listings = Listing.where(user_id: "#{User.find_by_username(params[:username]).id}")
+
+    # @listings = Listing.where(user_id: "#{params[:username]}")
+  end
+
 
   # GET /listings/1 or /listings/1.json
   def show
@@ -29,7 +46,7 @@ class ListingsController < ApplicationController
 
     respond_to do |format|
       if @listing.save
-        format.html { redirect_to @listing, notice: "Listing was successfully created." }
+        format.html { redirect_to shop_index_path(current_user.username), notice: "Listing was successfully created." }
         format.json { render :show, status: :created, location: @listing }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +59,7 @@ class ListingsController < ApplicationController
   def update
     respond_to do |format|
       if @listing.update(listing_params)
-        format.html { redirect_to @listing, notice: "Listing was successfully updated." }
+        format.html { redirect_to shop_index_path(current_user.username), notice: "Listing was successfully updated." }
         format.json { render :show, status: :ok, location: @listing }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +72,7 @@ class ListingsController < ApplicationController
   def destroy
     @listing.destroy
     respond_to do |format|
-      format.html { redirect_to listings_url, notice: "Listing was successfully destroyed." }
+      format.html { redirect_to shop_index_path(current_user.username), notice: "Listing was successfully destroyed." }
       format.json { head :no_content }
     end
   end

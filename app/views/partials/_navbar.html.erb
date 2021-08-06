@@ -1,12 +1,15 @@
 <nav class="nav">
   <a class="nav-link active" aria-current="page" href="/">Vandals</a>
-   <ul class="navbar-nav">
+  
  <% if user_signed_in? %>
   <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+  <%= link_to "#{current_user.username}", shop_index_path(current_user.username), method: :get, class: "nav-link" %>
   <% else %>
     <%= link_to "Log In", user_session_path, method: :get, class: "nav-link"%>
+    <%= link_to "Sign Up", new_user_registration_path, method: :get, class: "nav-link" %>
   <% end %>
-  </ul>
+  
+
  
   <%# <a class="nav-link" href="#">Link</a> %>
   <%# <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> %>
