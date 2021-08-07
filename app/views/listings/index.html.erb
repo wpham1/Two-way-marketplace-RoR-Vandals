@@ -1,6 +1,7 @@
 <%# <p id="notice"><%= notice </p> %>
 
 <h1><%= params[:username] %> Shop</h1>
+<h3><%= Listing.where(user_id: "#{User.find_by_username(params[:username]).id}").count %> Stickers</h3>
 
 <table class="table">
   <thead>
@@ -29,7 +30,7 @@
           <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
           <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% else %>
-          <%= link_to 'Home', root_path %>
+          <%# <td><%= link_to 'Home', root_path %>
         <% end %>
       </tr>
     <% end %>

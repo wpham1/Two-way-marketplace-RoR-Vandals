@@ -27,7 +27,8 @@
 
 <p>
   <strong>Username:</strong>
-  <%= @listing.user.username %>
+  <%# <%= @listing.user.username %>
+  <%= link_to "#{@listing.user.username}", shop_index_path(params[:username]) %>
 </p>
 
 <p>
