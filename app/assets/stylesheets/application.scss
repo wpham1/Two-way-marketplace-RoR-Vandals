@@ -14,7 +14,19 @@
  *= require_self
  */
  @import "bootstrap";
+ @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
+ 
+ 
+//  $font-stack: 'Baloo 2', cursive;
+//  $primary-color: #50515F;
+
+// a {
+//     font-family: $font-stack;
+//     color: $primary-color
+// }
 
  .home-image {
      max-width: 300px;
  }
+
+ 
