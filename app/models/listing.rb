@@ -1,6 +1,8 @@
 class Listing < ApplicationRecord
   belongs_to :user
   has_one_attached :picture
+  has_many :favourite_listings
+  has_many :favourited_by, through: :favourite_listings, source: :user
 
   validates :name, presence: true
   validates :description, presence: true

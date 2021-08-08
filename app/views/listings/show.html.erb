@@ -41,3 +41,8 @@
 <% else %>
 <%= link_to 'Home', root_path %>
 <% end %>
+
+<% if current_user %>
+  <%= link_to "favourite",   favourite_shop_path(@listing, type: "favourite"), method: :put %>
+  <%= link_to "unfavourite", favourite_shop_path(@listing, type: "unfavourite"), method: :put %>
+<% end %>

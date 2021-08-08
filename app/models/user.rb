@@ -5,5 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable
 
   has_many :listings
+  has_many :favourite_listings
+  has_many :favourites, through: :favourite_listings, source: :listing
 
 end

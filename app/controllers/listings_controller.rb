@@ -1,12 +1,11 @@
 class ListingsController < ApplicationController
-  before_action :set_listing, only: %i[ show edit update destroy ]
+  before_action :set_listing, only: %i[ show edit update destroy favourite]
   before_action :set_user_listing, only: %i[ edit update destroy ]
   before_action :authenticate_user!
 
   # GET /listings or /listings.json
   def index
     
-   # CHANGE THIS TO SHOP AND MAKE INDEX ALL AGAIN
    @listings = Listing.where(user_id: "#{User.find_by_username(params[:username]).id}")
 
     # shows listings of the currently signed in user
@@ -17,16 +16,40 @@ class ListingsController < ApplicationController
   end
 
   def shop
-
-
     # finds the listing by the username
     @listings = Listing.where(user_id: "#{User.find_by_username(params[:username]).id}")
-
     # @listings = Listing.where(user_id: "#{params[:username]}")
   end
 
+  def favourite
+      # Add and remove favorite recipes
+  # for current_user
+    type = params[:type]
+    if type == "favourite"
+      current_user.favourites << @listing 
+      redirect_to shop_index_path(current_user.username), notice: "Listing was successfully created."
+      # redirect_back(), notice: 'You favorited #{@listing.name}'
+      
 
-  # GET /listings/1 or /listings/1.json
+    elsif type == "unfavourite"
+      current_user.favourites.delete(@listing) 
+      redirect_to shop_index_path(current_user.username), notice: "Listing was successfully created."
+      # redirect_back fallback_location: root_path, notice: 'Unfavorited #{@listing.name}'
+      
+
+    else
+      # Type missing, nothing happens
+      redirect_back fallback_location: @listing, notice: 'Nothing happened.'
+    end
+  end
+
+    def fave_list
+      @listings = current_user.favourites
+    end
+  
+
+
+   # GET /listings/1 or /listings/1.json
   def show
   end
 
