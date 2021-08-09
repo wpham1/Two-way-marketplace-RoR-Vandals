@@ -9,7 +9,7 @@
             <%= image_tag listing.picture, class: "card-img-top" %>
             <div class="card-body">
                 <h5 class="card-title"><%= listing.name %></h5>
-                <h6 class="card-subtitle"><%= listing.user.username %></h6>
+                <h6 class="card-subtitle"><%= link_to "#{listing.user.username}", shop_index_path(listing.user.username) %></h6>
                 <p class="card-text listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
                 <p class="card-text">$<%=listing.price %> 
                 <%= link_to "Show More", shop_path(listing.user.username, listing.id), class:"btn btn-primary btn-right" %>

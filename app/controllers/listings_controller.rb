@@ -27,14 +27,13 @@ class ListingsController < ApplicationController
     type = params[:type]
     if type == "favourite"
       current_user.favourites << @listing 
-      redirect_to shop_index_path(current_user.username), notice: "Listing was successfully faved."
-      # redirect_back(), notice: 'You favorited #{@listing.name}'
+      # redirect_to faves_path(current_user.username), notice: "Listing was successfully faved."
+      flash.now[:notice] = "Listing was successfully faved."
       
 
     elsif type == "unfavourite"
       current_user.favourites.delete(@listing) 
-      redirect_to shop_index_path(current_user.username), notice: "Listing was successfully unfaved."
-      # redirect_back fallback_location: root_path, notice: 'Unfavorited #{@listing.name}'
+      redirect_to faves_path(current_user.username), notice: "Listing was successfully unfaved."
       
 
     else
