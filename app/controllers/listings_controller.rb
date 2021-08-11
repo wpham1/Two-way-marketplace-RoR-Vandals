@@ -74,14 +74,16 @@ class ListingsController < ApplicationController
         payment_intent_data: {
             metadata: {
                 listing_id: @listing.id,
-                user_id: current_user.id,
+                user_id: current_user.id
             }
         },
         mode: 'payment',
         success_url: "#{root_url}payments/success?listingId=#{@listing.id}",
         cancel_url: "#{root_url}"
       )
+   
       @session_id = session.id
+
   end
 
 
