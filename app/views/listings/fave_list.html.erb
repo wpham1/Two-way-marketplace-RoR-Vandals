@@ -34,7 +34,7 @@
         <td><%= listing.user.username %></td>
         <td><%= link_to 'Show', shop_path(listing.user.username, listing.id) %></td>
         <td>  <%= link_to "unfavourite", favourite_shop_path(listing.user.username, listing.id, type: "unfavourite"), method: :put %>
-%></td>
+</td>
       </tr>
     <% end %>
   </tbody>

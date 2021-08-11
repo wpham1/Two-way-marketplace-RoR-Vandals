@@ -1,29 +1,27 @@
-<nav class="nav">
-  <a class="nav-link active" aria-current="page" href="/">Vandals</a>
-  
+<nav class="nav nav-justified">
+  <a class="nav-item nav-link active vandal-logo" aria-current="page" href="/">VANDALS</a>
+
  <% if user_signed_in? %>
-  <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
-  <%= link_to "#{current_user.username}", shop_index_path(current_user.username), method: :get, class: "nav-link" %>
-  <%= link_to "Faves", faves_path(current_user.username), class: "nav-link" %>
-  <%= link_to "Add New Sticker", new_listing_path, class: "btn btn-primary btn-lrg" %>
+  <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-item nav-link nav-text" %>
+  <%= link_to "#{current_user.username}", shop_index_path(current_user.username), method: :get, class: "nav-item nav-link nav-text" %>
+  
+  <%= link_to faves_path(current_user.username), class: "nav-item nav-link nav-text" do %>
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="Salmon" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg>  
+<% end %>
+  <%= link_to "Add New Sticker", new_listing_path, class: "nav-item nav-text" %>
   <% else %>
-    <%= link_to "Log In", user_session_path, method: :get, class: "nav-link"%>
-    <%= link_to "Sign Up", new_user_registration_path, method: :get, class: "nav-link" %>
+    <%= link_to "Log In", user_session_path, method: :get, class: "nav-item nav-link nav-text"%>
+    <%= link_to "Sign Up", new_user_registration_path, method: :get, class: "nav-item nav-link nav-text" %>
   <% end %>
 
-<%#  <details>
-    <summary>Shopping Cart</summary>
-    <% if @cart.empty? 
-        <p>Cart's empty.</p>
-    <% else 
-        <ul>
-        <% @cart.each do |listing|
-            <li><%= listing.name  <%= link_to "Remove from cart", remove_from_cart_path(listing.id), method: :delete, class: "btn btn-primary" </li>
-            <% end
-        </ul>
-        
-    <% end 
-</details>%>
-
+    <%# if @cart.empty? %>
+    <%# else %>
+        <%# @cart.each do |listing|%>
+            <%#= listing.name %> <%#= link_to "Remove from cart", remove_from_cart_path(listing.id), method: :delete, class: "btn btn-primary" %>
+            <%# end %>    
+    <%# end %>
+ 
 </nav>
 

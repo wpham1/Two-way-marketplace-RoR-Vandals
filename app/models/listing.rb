@@ -1,5 +1,6 @@
 class Listing < ApplicationRecord
   belongs_to :user
+  has_many :orders, dependent: :destroy
   has_one_attached :picture
   has_many :favourite_listings
   has_many :favourited_by, through: :favourite_listings, source: :user
@@ -10,5 +11,6 @@ class Listing < ApplicationRecord
   validates :size, presence: true
   validates :finish, presence: true
   validates :picture, presence: true
+  
 
 end

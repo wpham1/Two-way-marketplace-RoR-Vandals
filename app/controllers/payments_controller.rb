@@ -12,13 +12,14 @@ class PaymentsController < ApplicationController
     receipt_url = payment.charges.data[0].receipt_url
 
     Order.create(user_id: buyer_id, listing_id: listing_id, payment_intent_id: payment_intent_id, receipt_url: receipt_url)
-
+    
+     pp payment
      p "user id " + buyer_id
      render plain: "Success"
 
 
     end
-
+    
     def success
         listing_id = params[:listingId]
         @listing = Listing.find(listing_id)

@@ -14,19 +14,43 @@
  *= require_self
  */
  @import "bootstrap";
- @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&display=swap');
  
- 
-//  $font-stack: 'Baloo 2', cursive;
-//  $primary-color: #50515F;
+ $primary-color: #50515F;
+ $font-stack: 'Baloo 2', cursive;
+a {
+    font-family: $font-stack;
+    color: $primary-color;
+}
 
-// a {
-//     font-family: $font-stack;
-//     color: $primary-color
-// }
+.nav-link {
+    font-size: 36px;
+}
+
+.nav-text{
+    margin-top: 20px;
+}
+
+.vandal-logo{
+    font-family: $font-stack;
+    font-size: 64px;
+    font-weight:800;
+    color: $primary-color;
+}
 
  .home-image {
      max-width: 300px;
  }
 
+ .btn-primary{
+    background-color: rgb(80, 81, 95);
+    border-radius: 72;
+ }
  
+ .col{
+     padding-top: 50px;
+ }
+
+ .show-image{
+     max-width: 50%;
+ }

@@ -7,7 +7,6 @@ class ListingsController < ApplicationController
   def index
   # this shows all of the users listing in their shop
    @listings = Listing.where(user_id: "#{User.find_by_username(params[:username]).id}")
-
   end
 
   def shop
@@ -21,15 +20,13 @@ class ListingsController < ApplicationController
     type = params[:type]
     if type == "favourite"
       current_user.favourites << @listing 
-      # redirect_to faves_path(current_user.username), notice: "Listing was successfully faved."
-      flash.now[:notice] = "Listing was successfully faved."
-      
+      redirect_to faves_path(current_user.username), notice: "Listing was successfully faved."
 
+      # delete favourite if unfavourited
     elsif type == "unfavourite"
       current_user.favourites.delete(@listing) 
       redirect_to faves_path(current_user.username), notice: "Listing was successfully unfaved."
-      
-
+    # do nothing in case
     else
       # Type missing, nothing happens
       redirect_back fallback_location: @listing, notice: 'Nothing happened.'
@@ -37,16 +34,19 @@ class ListingsController < ApplicationController
   end
 
     def fave_list
+      # shows listings of current users faves
       @listings = current_user.favourites
     end
   
   def add_to_cart
+    # puts the listing into the cart if its not in the cart
     id = params[:id].to_i
     session[:cart] << id unless session[:cart].include?(id)
     redirect_to root_path
   end
 
   def remove_from_cart
+    # reomves listing from cart
     id = params[:id].to_i
     session[:cart].delete(id)
     redirect_to root_path
@@ -56,19 +56,14 @@ class ListingsController < ApplicationController
   def show
       session = Stripe::Checkout::Session.create(
         payment_method_types: ['card'],
-        client_reference_id: current_user ? current_user.id : nil,
-        customer_email: current_user ? current_user.email : nil,
+        client_reference_id: current_user.id,
+        customer_email: current_user.email,
         line_items: [{
             name: @listing.name,
             description: @listing.description,
             images: ["#{@listing.picture.url}"],
             amount: (@listing.price * 100).to_i,
             currency: 'aud',
-            adjustable_quantity: {
-              enabled: true,
-              minimum: 1,
-              maximum: 50,
-            },
             quantity: 1,
         }],
         payment_intent_data: {
@@ -81,9 +76,7 @@ class ListingsController < ApplicationController
         success_url: "#{root_url}payments/success?listingId=#{@listing.id}",
         cancel_url: "#{root_url}"
       )
-   
       @session_id = session.id
-
   end
 
 
@@ -145,7 +138,7 @@ class ListingsController < ApplicationController
       @listing = current_user.listings.find_by_id(params[:id])
       if @listing == nil
         flash[:alert] = "You don't have permission to do that"
-          redirect_to listings_path
+          redirect_to root_path
         end
     end
 

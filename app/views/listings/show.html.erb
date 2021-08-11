@@ -1,40 +1,20 @@
 <%# <p id="notice"><%= notice </p> %>
 
-
-<p>
-  <strong>Name:</strong>
-  <%= @listing.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @listing.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @listing.price %>
-</p>
-
-<p>
-  <strong>Size:</strong>
-  <%= @listing.size %>
-</p>
-
-<p>
-  <strong>Finish:</strong>
-  <%= @listing.finish %>
-</p>
-
-<p>
-  <strong>Username:</strong>
-  <%# <%= @listing.user.username %>
-  <%= link_to "#{@listing.user.username}", shop_index_path(params[:username]) %>
-</p>
-
-<p>
-  <%= image_tag @listing.picture %>
-</p>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm">
+      <div class="text-center"><%= image_tag @listing.picture, class: "show-image" %></div> <br>
+      <p><strong>Description:</strong><%= @listing.description %></p>
+    </div>
+      <div class="col-sm">
+      <p><strong>Name:</strong><%= @listing.name %></p> <br>
+      <p>Designed by:<%= link_to "#{@listing.user.username}", shop_index_path(params[:username]) %></p> <br>
+      <p><strong>Price:</strong><%= @listing.price %></p> <br>
+      <p><strong>Size:</strong><%= @listing.size %></p> <br>
+      <p><strong>Finish:</strong><%= @listing.finish %></p>
+      </div>
+    </div>
+</div>
 
 <% if params[:username] == current_user.username %>
   <%= link_to 'Edit', edit_shop_path(current_user.username, @listing.id) %> |
@@ -48,9 +28,10 @@
   <%= link_to "unfavourite", favourite_shop_path(@listing, type: "unfavourite"), method: :put %>
 <% end %>
 
-<button data-stripe="payment">Buy Sticker <%= number_to_currency(@listing.price) %></button>
-<script src="https://js.stripe.com/v3/"></script>
+<button data-stripe="payment" type="button" class="btn btn-primary">Buy Sticker</button>
 
+
+<script src="https://js.stripe.com/v3/"></script>
 <script>
     document.querySelector("[data-stripe='payment']").addEventListener("click", () => {
         const stripe = Stripe("<%= Rails.application.credentials.dig(:stripe, :public_key) %>");

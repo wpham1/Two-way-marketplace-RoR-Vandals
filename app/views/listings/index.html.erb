@@ -28,7 +28,7 @@
         <td><%= link_to 'Show', shop_path(listing.user.username, listing.id) %></td>
         <% if params[:username] == current_user.username %>
           <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-          <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', shop_path(listing.user.username, listing.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% else %>
           <%# <td><%= link_to 'Home', root_path %>
         <% end %>

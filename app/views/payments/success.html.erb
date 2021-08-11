@@ -1,6 +1,11 @@
-<h1> "You've successfully made a payment!" </h1>
 
-<p>Here is your receipt:</p>
-<%= link_to "Receipt", @purchase.receipt_url, target: :_blank %>
+<div class="text-center">
+    <h1> Purchase Successful! </h1>
+    <h1>Thank you for your order!</h1>
 
-<%= link_to "Go Home", root_path %>
+    <p>Here is a link to your receipt: <%= link_to "Receipt", @purchase.receipt_url, target: :_blank %></p>
+    <p>Your order number is: <%= @purchase.id %></p>
+    <p>Order date: <%= @purchase.created_at %></p>
+
+    <%= link_to "Continue Shopping", root_path, class:"btn btn-primary" %>
+</div>

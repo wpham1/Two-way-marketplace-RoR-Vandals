@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # restful listings routes
   resources :listings
   devise_for :users
   root 'home#page'
@@ -7,8 +8,10 @@ resources :listings, path: '/:username/listings', as: :shop do
   put :favourite, on: :member
 end
 
+# routes for webhook
 post "/payments/webhook", to: "payments#webhook"
 
+# routes for successful payment
 get "/payments/success", to: "payments#success"
 
 # routes for faves
@@ -18,7 +21,4 @@ get "/payments/success", to: "payments#success"
 post 'listings/add_to_cart/:id', to: 'listings#add_to_cart', as: 'add_to_cart'
 delete 'listings/remove_from_cart/:id', to: 'listings#remove_from_cart', as: 'remove_from_cart'
 
-
-
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
