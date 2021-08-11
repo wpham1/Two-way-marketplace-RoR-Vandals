@@ -1,14 +1,16 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy favourite]
   before_action :set_user_listing, only: %i[ edit update destroy ]
+  before_action :initialise_session
+  before_action :load_cart
   before_action :authenticate_user!
 
   # GET /listings or /listings.json
   def index
-    
+  # this shows all of the users listing in their shop
    @listings = Listing.where(user_id: "#{User.find_by_username(params[:username]).id}")
-
-    # shows listings of the currently signed in user
+   
+   # shows listings of the currently signed in user
     # @listings = Listing.where(user_id: "#{current_user.id}")
     
     # shows all listings
@@ -46,7 +48,17 @@ class ListingsController < ApplicationController
       @listings = current_user.favourites
     end
   
+  def add_to_cart
+    id = params[:id].to_i
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_to root_path
+  end
 
+  def remove_from_cart
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_to root_path
+  end
 
    # GET /listings/1 or /listings/1.json
   def show
@@ -113,6 +125,13 @@ class ListingsController < ApplicationController
         end
     end
 
+    def initialise_session
+      session[:cart] ||= [] # Initialises a cart on session
+    end
+
+    def load_cart
+      @cart = Listing.find(session[:cart])
+    end
 
     # Only allow a list of trusted parameters through.
     def listing_params

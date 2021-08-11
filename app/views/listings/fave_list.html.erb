@@ -2,6 +2,13 @@
 
 <h1><%= params[:username] %> Faves</h1>
 
+<% if current_user.favourites.empty? %>
+<p class="text-muted">"You haven't favourited anything yet!"</p>
+<%= link_to 'Find something to fave!', root_path %>
+  <% else %>
+  <p>You have <%= pluralize current_user.favourites.count, "fave"%></p>
+<% end %>
+
 <table class="table">
   <thead>
     <tr>
@@ -35,4 +42,4 @@
 
 <br>
 
-<%= link_to 'New Listing', new_listing_path %>
+

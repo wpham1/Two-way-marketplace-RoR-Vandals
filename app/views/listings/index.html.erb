@@ -1,7 +1,7 @@
 <%# <p id="notice"><%= notice </p> %>
 
 <h1><%= params[:username] %> Shop</h1>
-<h3><%= Listing.where(user_id: "#{User.find_by_username(params[:username]).id}").count %> Stickers</h3>
+<h3><%= pluralize Listing.where(user_id: "#{User.find_by_username(params[:username]).id}").count, "Sticker" %></h3>
 
 <table class="table">
   <thead>
