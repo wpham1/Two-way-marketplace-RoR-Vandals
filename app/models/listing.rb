@@ -11,11 +11,4 @@ class Listing < ApplicationRecord
   validates :finish, presence: true
   validates :picture, presence: true
 
-  # def to_builder
-  #   Jbuilder.new do |listing|
-  #     listing.price stripe_price_id
-  #     listing.quantity 1
-  #   end
-  # end
-
 end

@@ -1,3 +1,6 @@
 <h1> "You've successfully made a payment!" </h1>
 
+<p>Here is your receipt:</p>
+<%= link_to "Receipt", @purchase.receipt_url, target: :_blank %>
+
 <%= link_to "Go Home", root_path %>

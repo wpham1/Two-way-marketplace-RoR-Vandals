@@ -7,23 +7,17 @@ class ListingsController < ApplicationController
   def index
   # this shows all of the users listing in their shop
    @listings = Listing.where(user_id: "#{User.find_by_username(params[:username]).id}")
-   
-   # shows listings of the currently signed in user
-    # @listings = Listing.where(user_id: "#{current_user.id}")
-    
-    # shows all listings
-    # @listings = Listing.all
+
   end
 
   def shop
     # finds the listing by the username
     @listings = Listing.where(user_id: "#{User.find_by_username(params[:username]).id}")
-    # @listings = Listing.where(user_id: "#{params[:username]}")
   end
 
   def favourite
       # Add and remove favorite recipes
-  # for current_user
+      # for current_user
     type = params[:type]
     if type == "favourite"
       current_user.favourites << @listing 
@@ -62,11 +56,9 @@ class ListingsController < ApplicationController
   def show
       session = Stripe::Checkout::Session.create(
         payment_method_types: ['card'],
-        customer_email: "#{current_user.email}",
-        line_items: 
-        # @cart.collect { |item| item.to_builder.attributes! },
-
-        [{
+        client_reference_id: current_user ? current_user.id : nil,
+        customer_email: current_user ? current_user.email : nil,
+        line_items: [{
             name: @listing.name,
             description: @listing.description,
             images: ["#{@listing.picture.url}"],
@@ -81,9 +73,11 @@ class ListingsController < ApplicationController
         }],
         payment_intent_data: {
             metadata: {
-                user_id: current_user.id
+                listing_id: @listing.id,
+                user_id: current_user.id,
             }
         },
+        mode: 'payment',
         success_url: "#{root_url}payments/success?listingId=#{@listing.id}",
         cancel_url: "#{root_url}"
       )
