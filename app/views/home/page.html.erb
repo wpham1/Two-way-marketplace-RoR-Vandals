@@ -1,17 +1,6 @@
 <%# <%= link_to "Add New Sticker", new_listing_path, class: "btn btn-primary btn-lrg" %> 
 
-<details>
-    <summary>Shopping Cart</summary>
-    <% if @cart.empty? %>
-        <p>Cart's empty.</p>
-    <% else %>
-        <ul>
-        <% @cart.each do |listing|%>
-            <li><%= listing.name %> <%= link_to "Remove from cart", remove_from_cart_path(listing.id), method: :delete, class: "btn btn-primary" %></li>
-            <% end %>
-        </ul>
-    <% end %>
-</details>
+
 
 <div class="row">
     <% @listings.each do |listing|%>

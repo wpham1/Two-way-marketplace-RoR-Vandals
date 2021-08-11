@@ -1,5 +1,6 @@
 <%# <p id="notice"><%= notice </p> %>
 
+
 <p>
   <strong>Name:</strong>
   <%= @listing.name %>
@@ -46,3 +47,15 @@
   <%= link_to "favourite",   favourite_shop_path(@listing, type: "favourite"), method: :put %>
   <%= link_to "unfavourite", favourite_shop_path(@listing, type: "unfavourite"), method: :put %>
 <% end %>
+
+<button data-stripe="payment">Buy Sticker <%= number_to_currency(@listing.price) %></button>
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    document.querySelector("[data-stripe='payment']").addEventListener("click", () => {
+        const stripe = Stripe("<%= Rails.application.credentials.dig(:stripe, :public_key) %>");
+        stripe.redirectToCheckout({
+            sessionId: "<%= @session_id %>"
+        });
+    });
+</script>

@@ -1,8 +1,6 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy favourite]
   before_action :set_user_listing, only: %i[ edit update destroy ]
-  before_action :initialise_session
-  before_action :load_cart
   before_action :authenticate_user!
 
   # GET /listings or /listings.json
@@ -62,7 +60,37 @@ class ListingsController < ApplicationController
 
    # GET /listings/1 or /listings/1.json
   def show
+      session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        customer_email: "#{current_user.email}",
+        line_items: 
+        # @cart.collect { |item| item.to_builder.attributes! },
+
+        [{
+            name: @listing.name,
+            description: @listing.description,
+            images: ["#{@listing.picture.url}"],
+            amount: (@listing.price * 100).to_i,
+            currency: 'aud',
+            adjustable_quantity: {
+              enabled: true,
+              minimum: 1,
+              maximum: 50,
+            },
+            quantity: 1,
+        }],
+        payment_intent_data: {
+            metadata: {
+                user_id: current_user.id
+            }
+        },
+        success_url: "#{root_url}payments/success?listingId=#{@listing.id}",
+        cancel_url: "#{root_url}"
+      )
+      @session_id = session.id
   end
+
+
 
   # GET /listings/new
   def new
@@ -123,14 +151,6 @@ class ListingsController < ApplicationController
         flash[:alert] = "You don't have permission to do that"
           redirect_to listings_path
         end
-    end
-
-    def initialise_session
-      session[:cart] ||= [] # Initialises a cart on session
-    end
-
-    def load_cart
-      @cart = Listing.find(session[:cart])
     end
 
     # Only allow a list of trusted parameters through.
