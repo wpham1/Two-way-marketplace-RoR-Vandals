@@ -1,43 +1,35 @@
-<%# <p id="notice"><%= notice </p> %>
-
-<h1><%= params[:username] %> Shop</h1>
+<div class="jumbotron jumbotron-fluid banner">
+  <div class="container text-center">
+    <h1><%= params[:username] %> Shop</h1>
 <h3><%= pluralize Listing.where(user_id: "#{User.find_by_username(params[:username]).id}").count, "Sticker" %></h3>
+  </div>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Size</th>
-      <th>Finish</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @listings.each do |listing| %>
-      <tr>
-        <td><%= listing.name %></td>
-        <td><%= listing.description %></td>
-        <td><%= listing.price %></td>
-        <td><%= listing.size %></td>
-        <td><%= listing.finish %></td>
-        <td><%= listing.user.username %></td>
-        <td><%= link_to 'Show', shop_path(listing.user.username, listing.id) %></td>
-        <% if params[:username] == current_user.username %>
-          <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-          <td><%= link_to 'Destroy', shop_path(listing.user.username, listing.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% else %>
-          <%# <td><%= link_to 'Home', root_path %>
-        <% end %>
-      </tr>
+<div class="row mt-3">
+    <% @listings.each do |listing|%>
+        <%# turns the cards into rows of 3 %>
+        <div class="col-md-3">
+            <div class="card" style="width: 15rem;">
+            <%= image_tag listing.picture, class: "card-img-top" %>
+            <div class="card-body card-thicc">
+                <h5 class="card-title card-thicc"><%= listing.name %></h5>
+                <p class="card-text card-thicc">$<%=listing.price %></p> 
+                <p class="card-text card-thin listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
+                <div class="container d-grid d-md-block">
+                  <%= link_to "Show More", shop_path(listing.user.username, listing.id), class:"btn btn-primary btn-sm" %>
+                  <% if params[:username] == current_user.username %>
+                  <%= link_to 'Edit', edit_listing_path(listing), class:"btn btn-primary btn-sm" %>
+                  <%= link_to 'Destroy', shop_path(listing.user.username, listing.id), method: :delete, class: "btn btn-primary btn-sm", data: { confirm: 'Are you sure?' } %>
+                  <% end %>
+                </div>
+            </div>
+            </div>
+        </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Listing', new_listing_path %>
+</div>
+<% if params[:username] == current_user.username && current_user.listings.empty?%>
+<p class="text-center small-text">You don't have any stickers yet!</p>
+<p class="text-center small-text"><%= link_to 'Add A Sticker', new_listing_path %></p>
+<% end %>
 

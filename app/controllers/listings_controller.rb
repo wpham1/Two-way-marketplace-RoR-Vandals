@@ -20,12 +20,12 @@ class ListingsController < ApplicationController
     type = params[:type]
     if type == "favourite"
       current_user.favourites << @listing 
-      redirect_to faves_path(current_user.username), notice: "Listing was successfully faved."
+      redirect_to shop_path(@listing.user.username, @listing.id ), notice: "Listing was successfully faved."
 
       # delete favourite if unfavourited
     elsif type == "unfavourite"
       current_user.favourites.delete(@listing) 
-      redirect_to faves_path(current_user.username), notice: "Listing was successfully unfaved."
+      redirect_to shop_path(@listing.user.username, @listing.id), notice: "Listing was successfully unfaved."
     # do nothing in case
     else
       # Type missing, nothing happens

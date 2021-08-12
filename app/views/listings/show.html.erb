@@ -1,5 +1,3 @@
-<%# <p id="notice"><%= notice </p> %>
-
 <div class="container-fluid">
     <div class="row">
       <div class="col-sm">
@@ -7,28 +5,38 @@
       <p><strong>Description:</strong><%= @listing.description %></p>
     </div>
       <div class="col-sm">
-      <p><strong>Name:</strong><%= @listing.name %></p> <br>
-      <p>Designed by:<%= link_to "#{@listing.user.username}", shop_index_path(params[:username]) %></p> <br>
-      <p><strong>Price:</strong><%= @listing.price %></p> <br>
-      <p><strong>Size:</strong><%= @listing.size %></p> <br>
-      <p><strong>Finish:</strong><%= @listing.finish %></p>
+        <p class="card-show"><strong><%= @listing.name %></strong></p> 
+        <p class="small-text">Designed by <%= link_to "#{@listing.user.username}", shop_index_path(params[:username]) %></p>
+        <p class="card-show"><strong>$<%= @listing.price %></strong></p>
+        <p><strong>Size: </strong><%= @listing.size %></p>
+        <p><strong>Finish: </strong><%= @listing.finish %></p><br>
+        <button data-stripe="payment" type="button" class="btn btn-primary">Buy Sticker</button>
+          <% if current_user.favourites.include?(@listing) %>
+            <%= link_to favourite_shop_path(@listing, type: "unfavourite"), method: :put do %>
+             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="Tomato" class="bi bi-heart-fill" viewBox="0 0 16 16">
+             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+            </svg>
+            <% end %> 
+          <% else %>
+            <%= link_to favourite_shop_path(@listing, type: "favourite"), method: :put do %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="DimGray" class="bi bi-heart-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+              </svg> 
+            <% end %>
+          <% end %>
+          <br><br>
+          <% if params[:username] == current_user.username %>
+            <p class="card-thicc"><%= link_to 'Edit', edit_shop_path(current_user.username, @listing.id) %>
+            <%= link_to 'Back', shop_index_path(current_user.username) %></p>
+          <% else %>
+          <p class="card-thicc"><%= link_to 'Home', root_path %></p>
+          <% end %>
       </div>
     </div>
 </div>
 
-<% if params[:username] == current_user.username %>
-  <%= link_to 'Edit', edit_shop_path(current_user.username, @listing.id) %> |
-  <%= link_to 'Back', shop_index_path(current_user.username) %>
-<% else %>
-<%= link_to 'Home', root_path %>
-<% end %>
 
-<% if current_user %>
-  <%= link_to "favourite",   favourite_shop_path(@listing, type: "favourite"), method: :put %>
-  <%= link_to "unfavourite", favourite_shop_path(@listing, type: "unfavourite"), method: :put %>
-<% end %>
 
-<button data-stripe="payment" type="button" class="btn btn-primary">Buy Sticker</button>
 
 
 <script src="https://js.stripe.com/v3/"></script>

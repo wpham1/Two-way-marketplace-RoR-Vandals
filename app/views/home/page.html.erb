@@ -1,23 +1,16 @@
 
-<div class="row">
+<div class="row mt-3">
     <% @listings.each do |listing|%>
         <%# turns the cards into rows of 4 %>
         <div class="col-md-3">
             <div class="card" style="width: 15rem;">
             <%= image_tag listing.picture, class: "card-img-top" %>
             <div class="card-body">
-                <h5 class="card-title"><%= listing.name %></h5>
-                <h6 class="card-subtitle"><%= link_to "#{listing.user.username}", shop_index_path(listing.user.username) %></h6>
-                <p class="card-text listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
-                <p class="card-text">$<%=listing.price %></p> <br>
+                <h5 class="card-title card-thicc"><%= listing.name %></h5>
+                <h6 class="card-subtitle "><%= link_to "#{listing.user.username}", shop_index_path(listing.user.username) %></h6>
+                <p class="card-text card-thin listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
+                <p class="card-text card-thicc">$<%=listing.price %></p>
                 <%= link_to "Show More", shop_path(listing.user.username, listing.id), class:"btn btn-primary" %>
-                
-                <%# if @cart.include?(listing) %>
-                <%#= link_to "Remove from cart", remove_from_cart_path(listing.id), method: :delete, class: "btn btn-primary" %>
-                <%# else %>
-                <%#= link_to "Add to cart", add_to_cart_path(listing.id), method: :post, class: "btn btn-primary" %>
-                <%# end %>
-                <%# <a href="#" class="btn btn-primary">Show more</a> %>
             </div>
             </div>
         </div>
