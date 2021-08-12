@@ -77,7 +77,7 @@ class ListingsController < ApplicationController
         cancel_url: "#{root_url}listings"
       )
       @session_id = session.id
-      pp stripe_session
+      # pp stripe_session
   end
 
 
