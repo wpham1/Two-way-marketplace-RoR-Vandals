@@ -13,9 +13,9 @@ class PaymentsController < ApplicationController
 
     Order.create(user_id: buyer_id, listing_id: listing_id, payment_intent_id: payment_intent_id, receipt_url: receipt_url)
     
-     pp payment
-     p "user id " + buyer_id
-     render plain: "Success"
+    #  pp payment
+    #  p "user id " + buyer_id
+    #  render plain: "Success"
 
 
     end
