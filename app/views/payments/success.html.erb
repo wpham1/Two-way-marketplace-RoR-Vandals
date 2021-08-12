@@ -3,7 +3,7 @@
     <h1> Purchase Successful! </h1>
     <h1>Thank you for your order!</h1>
 
-    <p>Here is a link to your receipt: <%= link_to "Receipt", @purchase.receipt_url, target: :_blank %></p>
+    <%# <p>Here is a link to your receipt: <%= link_to "Receipt", @purchase.receipt_url, target: :_blank %>
     <p>Your order number is: <%= @purchase.id %></p>
     <p>Order date: <%= @purchase.created_at %></p>
 
