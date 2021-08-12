@@ -56,8 +56,8 @@ class ListingsController < ApplicationController
   def show
       session = Stripe::Checkout::Session.create(
         payment_method_types: ['card'],
-        client_reference_id: current_user.id,
-        customer_email: current_user.email,
+        client_reference_id: current_user ? current_user.id : nil,
+        customer_email: current_user ? current_user.email : nil,
         line_items: [{
             name: @listing.name,
             description: @listing.description,
@@ -67,16 +67,17 @@ class ListingsController < ApplicationController
             quantity: 1,
         }],
         payment_intent_data: {
-            metadata: {
-                listing_id: @listing.id,
-                user_id: current_user.id
-            }
+          metadata: {
+            listing_id: @listing.id,
+            user_id: current_user ? current_user.id : nil
+          }
         },
         mode: 'payment',
         success_url: "#{root_url}payments/success?listingId=#{@listing.id}",
-        cancel_url: "#{root_url}"
+        cancel_url: "#{root_url}listings"
       )
       @session_id = session.id
+      pp stripe_session
   end
 
 
