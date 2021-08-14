@@ -10,33 +10,32 @@
 <% end %>
 
 <div class="row mt-3">
+            <%# turns the cards into rows of 4 %>
     <% @listings.each do |listing|%>
-        <%# turns the cards into rows of 4 %>
         <div class="col-md-3">
-            <div class="card" style="width: 15rem;">
-            <%= image_tag listing.picture, class: "card-img-top" %>
-            <div class="card-body">
-                <h5 class="card-title card-thicc"><%= listing.name %></h5>
-                <h6 class="card-subtitle "><%= link_to "#{listing.user.username}", shop_index_path(listing.user.username) %></h6>
-                <p class="card-text card-thin listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
-                <p class="card-text card-thicc">$<%=listing.price %></p>
-                <%= link_to "Show More", shop_path(listing.user.username, listing.id), class:"btn btn-primary" %>
-                <% if current_user.favourites.include?(listing) %>
-                  <%= link_to favourite_shop_path(listing.user.username, listing.id, type: "unfavourite"), method: :put do %>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="Tomato" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                    </svg>
-                  <% end %> 
-                <% else %>
-                  <%= link_to favourite_shop_path(listing.user.username, listing.id, type: "favourite"), method: :put do %>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="DimGray" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                    </svg> 
+              <div class="card" style="width: 15rem;">
+              <%= image_tag listing.picture, class: "card-img-top" %>
+              <div class="card-body">
+                  <h5 class="card-title card-thicc"><%= listing.name %></h5>
+                  <h6 class="card-subtitle "><%= link_to "#{listing.user.username}", shop_index_path(listing.user.username) %></h6>
+                  <p class="card-text card-thin listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
+                  <p class="card-text card-thicc">$<%=listing.price %></p>
+                  <%= link_to "Show More", shop_path(listing.user.username, listing.id), class:"btn btn-primary" %>
+                  <% if current_user.favourites.include?(listing) %>
+                    <%= link_to favourite_shop_path(listing.user.username, listing.id, type: "unfavourite"), method: :put do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="Tomato" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                      </svg>
+                    <% end %> 
+                  <% else %>
+                    <%= link_to favourite_shop_path(listing.user.username, listing.id, type: "favourite"), method: :put do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="DimGray" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                      </svg> 
+                    <% end %>
                   <% end %>
-                <% end %>
-                <% end %>
-
             </div>
             </div>
         </div>
+        <% end %>
 </div>
