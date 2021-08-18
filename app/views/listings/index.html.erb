@@ -18,7 +18,7 @@
                 <p class="card-text card-thin listing-description text-truncate" style="max-width: 300px;"><%=listing.description %></p>
                 <div class="container d-grid d-md-block">
                   <%= link_to "Show More", shop_path(listing.user.username, listing.id), class:"btn btn-primary btn-sm" %>
-                  <% if params[:username] == current_user.username %>
+                  <% if params[:username] == current_user.username || current_user.admin %>
                   <%= link_to 'Edit', edit_listing_path(listing), class:"btn btn-primary btn-sm" %>
                   <%= link_to 'Destroy', shop_path(listing.user.username, listing.id), method: :delete, class: "btn btn-primary btn-sm", data: { confirm: 'Are you sure?' } %>
                   <% end %>
